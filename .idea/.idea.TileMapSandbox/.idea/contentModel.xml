@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="CameraController.cs" t="Include" />
+        <e p="CityTile.cs" t="Include" />
+        <e p="HelloHexWorld.cs" t="Include" />
+        <e p="HexMapLibrary-master" t="Include">
+          <e p="CoordinateWrapper" t="Include">
+            <e p="CoordinateWrapper.cs" t="Include" />
+            <e p="CoordinateWrapperRectangularHorizontalPeriodic.cs" t="Include" />
+          </e>
+          <e p="HexConstants.cs" t="Include" />
+          <e p="HexConverter.cs" t="Include" />
+          <e p="HexEnums.cs" t="Include" />
+          <e p="HexGrid" t="Include">
+            <e p="GridElementProviders" t="Include">
+              <e p="HexGridCornerProvider.cs" t="Include" />
+              <e p="HexGridCornersProvider.cs" t="Include" />
+              <e p="HexGridDistanceCalculator.cs" t="Include" />
+              <e p="HexGridEdgeProvider.cs" t="Include" />
+              <e p="HexGridEdgesProvider.cs" t="Include" />
+              <e p="HexGridTileProvider.cs" t="Include" />
+              <e p="HexGridTilesProvider.cs" t="Include" />
+            </e>
+            <e p="HexGrid.cs" t="Include" />
+          </e>
+          <e p="HexGridMapLibrary.asmdef" t="Include" />
+          <e p="HexMap" t="Include">
+            <e p="Generic" t="Include">
+              <e p="HexMap_T.cs" t="Include" />
+              <e p="HexMap_TE.cs" t="Include" />
+              <e p="HexMap_TEC.cs" t="Include" />
+              <e p="MapDataProviders" t="Include">
+                <e p="CornerDataProvider.cs" t="Include" />
+                <e p="CornersDataProvider.cs" t="Include" />
+                <e p="EdgeDataProvider.cs" t="Include" />
+                <e p="EdgesDataProvider.cs" t="Include" />
+                <e p="TileDataProvider.cs" t="Include" />
+                <e p="TilesDataProvider.cs" t="Include" />
+              </e>
+              <e p="MapElements" t="Include">
+                <e p="CornerOfC.cs" t="Include" />
+                <e p="EdgeOfE.cs" t="Include" />
+                <e p="TileOfT.cs" t="Include" />
+              </e>
+            </e>
+            <e p="HexMap.cs" t="Include" />
+            <e p="HexMapShape.cs" t="Include" />
+            <e p="MapDistanceCalculators" t="Include">
+              <e p="MapDistanceCalculatoCornersr.cs" t="Include" />
+              <e p="MapDistanceCalculatorEdges.cs" t="Include" />
+              <e p="MapDistanceCalculatorTiles.cs" t="Include" />
+            </e>
+            <e p="MapElements" t="Include">
+              <e p="Corner.cs" t="Include" />
+              <e p="Edge.cs" t="Include" />
+              <e p="MapElement.cs" t="Include" />
+              <e p="Tile.cs" t="Include" />
+            </e>
+            <e p="MapPositionProviders" t="Include">
+              <e p="CornerPositionProvider.cs" t="Include" />
+              <e p="CornersPositionsProvider.cs" t="Include" />
+              <e p="EdgePositionProvider.cs" t="Include" />
+              <e p="EdgePositionsProvider.cs" t="Include" />
+              <e p="TilePositionProvider.cs" t="Include" />
+              <e p="TilePositionsProvider.cs" t="Include" />
+            </e>
+            <e p="Vector3IntEqualityComparer.cs" t="Include" />
+          </e>
+          <e p="HexMouse.cs" t="Include" />
+          <e p="HexUtility.cs" t="Include" />
+          <e p="MapSizeData.cs" t="Include" />
+        </e>
+        <e p="StationBuilder.cs" t="Include" />
+        <e p="SuburbTile.cs" t="Include" />
+        <e p="TerrainTileSet.cs" t="Include" />
+        <e p="TextMesh Pro" t="Include">
+          <e p="Resources" t="Include">
+            <e p="LineBreaking Following Characters.txt" t="Include" />
+            <e p="LineBreaking Leading Characters.txt" t="Include" />
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+          <e p="Sprites" t="Include">
+            <e p="EmojiOne Attribution.txt" t="Include" />
+          </e>
+        </e>
+        <e p="ToolBarButton.cs" t="Include" />
+        <e p="ToolBarCancelButton.cs" t="Include" />
+        <e p="ToolbarToggle.cs" t="Include" />
+        <e p="ToolManager.cs" t="Include" />
+        <e p="WorldMap.cs" t="Include" />
+        <e p="WorldMap_RandomCities.cs" t="Include" />
+        <e p="WorldTile.cs" t="Include" />
+      </e>
+      <e p="HexGridMapLibrary.csproj" t="IncludeRecursive" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+      <e p="TileMapSandbox.sln" t="IncludeFlat" />
+    </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_TileMapSandbox.-934521813.00" t="ExcludeRecursive" />
+  </component>
+</project>

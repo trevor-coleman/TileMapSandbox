@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c67dc8319994c6c8391c918382dbdb, type: 3}
+  m_Name: TerrainTiles
+  m_EditorClassIdentifier: 
+  clayPrefab: {fileID: 8580481654525074444, guid: ce2da7d47eec4419f8174a67c3ab2451,
+    type: 3}
+  coalPrefab: {fileID: 1696453696086174697, guid: df3949356b8ad4b2aa272bbb37024790,
+    type: 3}
+  desertPrefab: {fileID: 4619291836703792376, guid: e9a7d012a591345b1861065db1df916d,
+    type: 3}
+  diamondPrefab: {fileID: 6245962736912130773, guid: ea14363d63be043fc9d87155f81b4439,
+    type: 3}
+  goldPrefab: {fileID: 5877691381015900672, guid: 64e586e7d5c98400bb557aea3fcc2297,
+    type: 3}
+  ironPrefab: {fileID: 4305300191235054813, guid: 91c7d9cffecf44990af71bf986bac767,
+    type: 3}
+  lakePrefab: {fileID: 2760304908530194203, guid: 2c3958ec4c4f2403f86f307c4401100e,
+    type: 3}
+  pasturePrefab: {fileID: 442436782885019742, guid: aaf151a37ccca4704aeb7846bf588856,
+    type: 3}
+  riverPrefab: {fileID: 1967626466244921328, guid: 7e5afb83c02f44a959742b3c45a70029,
+    type: 3}
+  stonePrefab: {fileID: 54329494765227834, guid: 02b27f8d2de6b42a9b41ed28e0fa8d0e,
+    type: 3}
+  wastelandPrefab: {fileID: 6003891176871736256, guid: 6962059d3e6164b54979e3525cf82653,
+    type: 3}
+  waterPrefab: {fileID: 1077557048326076623, guid: fb3879d8a779c4d6d9c44f80f1ef0c50,
+    type: 3}
