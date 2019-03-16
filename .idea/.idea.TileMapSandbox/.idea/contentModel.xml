@@ -4,9 +4,6 @@
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GameManager.cs" t="Include" />
-        <e p="HUDController.cs" t="Include" />
-        <e p="HUDLayerController.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Buildables" t="Include">
             <e p="ABuildable.cs" t="Include" />
@@ -19,6 +16,7 @@
           </e>
           <e p="Commands.cs" t="Include" />
           <e p="HelloHexWorld.cs" t="Include" />
+          <e p="MoneyManager.cs" t="Include" />
           <e p="ScriptableObjects" t="Include">
             <e p="TerrainTileSet.cs" t="Include" />
           </e>
@@ -29,6 +27,8 @@
           <e p="UI" t="Include">
             <e p="AUIScreenController.cs" t="Include" />
             <e p="BuildStationOverlayController.cs" t="Include" />
+            <e p="HUDController.cs" t="Include" />
+            <e p="HUDLayerController.cs" t="Include" />
             <e p="ToolBarButton.cs" t="Include" />
             <e p="ToolBarCancelButton.cs" t="Include" />
             <e p="ToolbarController.cs" t="Include" />

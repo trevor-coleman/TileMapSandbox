@@ -63,9 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\HUDController.cs" />
-    <Compile Include="Assets\HUDLayerController.cs" />
     <Compile Include="Assets\Scripts\Buildables\ABuildable.cs" />
     <Compile Include="Assets\Scripts\Buildables\Station.cs" />
     <Compile Include="Assets\Scripts\Builder.cs" />
@@ -73,11 +70,14 @@
     <Compile Include="Assets\Scripts\CameraControls\CameraMover.cs" />
     <Compile Include="Assets\Scripts\Commands.cs" />
     <Compile Include="Assets\Scripts\HelloHexWorld.cs" />
+    <Compile Include="Assets\Scripts\MoneyManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\TerrainTileSet.cs" />
     <Compile Include="Assets\Scripts\Tools\BuildStationTool.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolManager.cs" />
     <Compile Include="Assets\Scripts\UI\AUiScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\BuildStationOverlayController.cs" />
+    <Compile Include="Assets\Scripts\UI\HUDController.cs" />
+    <Compile Include="Assets\Scripts\UI\HUDLayerController.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBarButton.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBarCancelButton.cs" />
     <Compile Include="Assets\Scripts\UI\ToolbarController.cs" />
