@@ -15,6 +15,7 @@ public class Builder : MonoBehaviour
 {
     private WorldMap worldMap;
     private GameObject builtObjectParent;
+    private MoneyManager moneyManager;
 
     [SerializeField]private GameObject stationPrefab;
     
@@ -23,6 +24,7 @@ public class Builder : MonoBehaviour
     {
         worldMap = FindObjectOfType<WorldMap>();
         builtObjectParent = new GameObject("Built Objects");
+        moneyManager = FindObjectOfType<MoneyManager>();
     }
 
     // Update is called once per frame
@@ -46,13 +48,21 @@ public class Builder : MonoBehaviour
     }
 
     public void Build(IBuildableData buildableData)
-    {    
-        switch (buildableData.Buildable)
+    {
+        if (moneyManager.CanSpend(buildableData.Price))
         {
-            case Buildable.Station:
-                BuildStation(buildableData as StationData);
-                break;
-            
+            switch (buildableData.Buildable)
+            {
+                case Buildable.Station:
+                    moneyManager.Spend(buildableData.Price);
+                    BuildStation(buildableData as StationData);
+                    break;
+
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Insufficient funds!");
         }
     }
 

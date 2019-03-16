@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
@@ -8,11 +9,29 @@ public class MoneyManager : MonoBehaviour
     private int bankBalance;
     public int BankBalance => bankBalance; 
     [SerializeField] private int startingBankBalance;
+    private UIController uiController;
 
     // Start is called before the first frame update
     void Start()
     {
+        uiController = FindObjectOfType<UIController>();
         bankBalance = startingBankBalance;
+        UpdateHUD();
+
+    }
+
+    private void UpdateHUD()
+    {
+        HudDisplayUpdate<FinanceDisplayData> update = new HudDisplayUpdate<FinanceDisplayData>(
+            HudDisplay.Finance, 
+            new FinanceDisplayData(
+                bankBalance));
+
+        Debug.Log("moneyManager: " + update.Data);
+        uiController.UpdateHud(update);
+        
+        
+        
     }
 
     // Update is called once per frame
@@ -31,6 +50,7 @@ public class MoneyManager : MonoBehaviour
         if (CanSpend(amount))
         {
             bankBalance -= amount;
+            UpdateHUD();
             return true;
         }
         else
@@ -43,5 +63,6 @@ public class MoneyManager : MonoBehaviour
     public void Deposit(int amount)
     {
         bankBalance += amount;
+        UpdateHUD();
     }
 }

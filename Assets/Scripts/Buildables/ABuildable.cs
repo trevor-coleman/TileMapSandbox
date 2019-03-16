@@ -22,5 +22,6 @@ public interface IBuildable<in T> where T: IBuildableData
 public interface IBuildableData
 {
     Tile<TileData> Tile { get;}
-    Buildable Buildable { get;}
+    Buildable Buildable { get;}    
+    int Price { get; }
 }

@@ -283,6 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffeaf666e6eca42f0bc03eeeca8c00ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 10000
+  catchment: 0
+  catchmentRadius: 0
 --- !u!1 &6575018966951763153
 GameObject:
   m_ObjectHideFlags: 0

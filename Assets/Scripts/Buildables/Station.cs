@@ -9,11 +9,14 @@ namespace Buildables
 {
     public class Station : ABuildable<StationData>
     {
+        [SerializeField]private int price;
         private TextMeshPro textMeshPro;
         [SerializeField] private int catchment;
         [SerializeField] private int catchmentRadius;
         private WorldMap worldMap;
         private List<Tile<TileData>> catchmentTiles;
+        
+        
 
         private void Start()
         {
@@ -61,13 +64,18 @@ namespace Buildables
             Tile = data.Tile;
             catchmentRadius = data.CatchmentRadius;
         }
+
+        
+
     }
 
     public class StationData : IBuildableData
     {
         public Tile<TileData> Tile { get; }
         public Buildable Buildable { get; }
-        public int CatchmentRadius { get; } 
+        public int CatchmentRadius { get; }
+
+        public int Price => CatchmentRadius * 10000;
         
         public StationData(Tile<TileData>tile, int catchmentRadius)
         {

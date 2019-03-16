@@ -8,6 +8,7 @@ namespace UI
     {
 
         protected T Properties;
+        protected CanvasGroup canvasGroup;
 
         protected bool IsVisible { get; set; }
         public string ScreenId { get; set; }
@@ -15,6 +16,22 @@ namespace UI
         public abstract void Show(T properties);
 
         public abstract void Hide();
+        
+        protected virtual void ShowCanvas()
+        {
+            IsVisible = true;
+            canvasGroup.alpha = 1;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        protected virtual void HideCanvas()
+        {
+            IsVisible = false;
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }
 
     }
    

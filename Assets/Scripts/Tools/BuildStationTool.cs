@@ -27,6 +27,7 @@ public class BuildStationTool : MonoBehaviour
     private GameObject catchmentMarkerParentObject;
     private bool catchmentParentObjectInstantiated;
     private Builder builder;
+    private MoneyManager moneyManager;
 
     // Start is called before the first frame update
     void Start()

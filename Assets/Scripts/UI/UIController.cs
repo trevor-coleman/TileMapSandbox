@@ -7,12 +7,15 @@ namespace UI
     {
         private ToolBarLayerController toolBarLayerController;
         private ToolOverlayLayerController toolOverlayLayerController;
+        private HudLayerController hudLayerController;
+            
     
         // Start is called before the first frame update
         void Start()
         {
             toolBarLayerController = GetComponentInChildren<ToolBarLayerController>();
             toolOverlayLayerController = GetComponentInChildren<ToolOverlayLayerController>();
+            hudLayerController = GetComponentInChildren<HudLayerController>();
         }
 
         // Update is called once per frame
@@ -24,6 +27,13 @@ namespace UI
         public void UpdateToolOverlay<T>(ToolOverLayProperties<T> properties) where T: IToolProperties
         {
             toolOverlayLayerController.UpdateTool<T>(properties);
+        }
+
+        public void UpdateHud<T>(HudDisplayUpdate<T> update) where T: IHudDisplayData
+        {
+            Debug.Log("====>" + hudLayerController);
+            Debug.Log("UIController" + update.Data);
+            hudLayerController.Show(update);
         }
 
         public void CancelTool(Tool tool)

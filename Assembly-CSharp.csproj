@@ -63,7 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CurrentBalancePanel.cs" />
+    <Compile Include="Assets\FinanceDisplayController.cs" />
     <Compile Include="Assets\Scripts\Buildables\ABuildable.cs" />
+    <Compile Include="Assets\Scripts\Buildables\Prices.cs" />
     <Compile Include="Assets\Scripts\Buildables\Station.cs" />
     <Compile Include="Assets\Scripts\Builder.cs" />
     <Compile Include="Assets\Scripts\CameraControls\CameraController.cs" />
@@ -77,7 +80,7 @@
     <Compile Include="Assets\Scripts\UI\AUiScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\BuildStationOverlayController.cs" />
     <Compile Include="Assets\Scripts\UI\HUDController.cs" />
-    <Compile Include="Assets\Scripts\UI\HUDLayerController.cs" />
+    <Compile Include="Assets\Scripts\UI\HudLayerController.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBarButton.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBarCancelButton.cs" />
     <Compile Include="Assets\Scripts\UI\ToolbarController.cs" />
