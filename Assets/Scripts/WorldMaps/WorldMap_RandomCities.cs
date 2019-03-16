@@ -11,7 +11,9 @@ public class WorldMap_RandomCities : WorldMap
     private GameObject previousHoverTileObject;
     private WorldTile hoverTileComponent;
     [SerializeField] private GameObject suburbTilePrefab;
-    
+    [SerializeField] private int numberOfLargeCities;
+    [SerializeField] private int numberOfCities;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,7 @@ public class WorldMap_RandomCities : WorldMap
 
         Init();
 
-        AddRandomCitiesToMap(10);
+        AddRandomCitiesToMap();
         AddSuburbs();
         
         if(adjustCameraToFit) AdjustCameraToFit();
@@ -27,60 +29,61 @@ public class WorldMap_RandomCities : WorldMap
 
     void Update()
     {
-        if (!hexMouse.CursorIsOnMap) return;
+        if (!HexMouse.CursorIsOnMap) return;
 
-        mouseTilePosition = hexMouse.TileCoord;
+        MouseTilePosition = HexMouse.TileCoord;
 
     }
     
-    private void AddRandomCitiesToMap(int numberOfCities)
+    private void AddRandomCitiesToMap()
     {
 
         for (int i = 0; i < numberOfCities; i++)
         {
-            int randomIndex = Random.Range(0, hexMap.TilesByPosition.Count);
+            int randomIndex = Random.Range(0, HexMap.TilesByPosition.Count);
 
-            Tile<int> tile = hexMap.Tiles[randomIndex];
+            Tile<TileData> tile = HexMap.Tiles[randomIndex];
             
             GameObject tileObject = ReplaceTerrainTile(tile, cityTilePrefab);
-            
-            
 
             tileObject.transform.rotation = Quaternion.Euler(RandomHexRotation());
 
             tileObject.name = "City - " + HexConverter.TileCoordToOffsetTileCoord(tile.Position);
+            tile.Data.Type = TileType.City;
             
-            tile.Data = Random.Range(2, 15);
-
-            tileObject.GetComponent<CityTile>().SetPopulation(tile.Data);
-
+            if (i < numberOfLargeCities)
+            {
+                tile.Data.population = Random.Range(12, 15);          
+            }
+            else
+            {
+                tile.Data.population = Random.Range(8, 12);
+            }
         }
     }
 
     private void AddSuburbs()
     {
-        foreach (Tile<int> tile in hexMap.Tiles)
+        foreach (Tile<TileData> tile in HexMap.Tiles)
         {
-            if (tile.Data > 10)
+            if (tile.Data.population > 10)
             {
-                Debug.Log(tileObjects[tile.Index].name + " === " + tile.Data + " --- ");
+                Debug.Log(TileObjects[tile.Index].name + " === " + tile.Data + " --- ");
                 
-                int numberOfSuburbs = tile.Data - 10;
-                tile.Data = 10;
+                int numberOfSuburbs = tile.Data.population - 10;
+                tile.Data.population = 10;
 
-                List<Tile<int>> ringTiles = hexMap.GetTiles.AdjacentToTile(tile);
+                List<Tile<TileData>> ringTiles = HexMap.GetTiles.AdjacentToTile(tile);
         
                 for (int i = 0; i < numberOfSuburbs; i++)
                 {
-                    
-                    
-                    Tile<int> neighborTile = ringTiles[Random.Range(0, ringTiles.Count)];
-                    
-                    if(tileObjects[neighborTile.Index].GetComponent<WorldTile>() is IPopulated) continue;
-
+                    Tile<TileData> neighborTile = ringTiles[Random.Range(0, ringTiles.Count)];   
+                    if(neighborTile.Data.Populated) continue;
                     GameObject neighborTileObject =  ReplaceTerrainTile(neighborTile, suburbTilePrefab);
-                    
                     neighborTileObject.name = "Suburb - " + HexConverter.TileCoordToOffsetTileCoord(tile.Position);
+
+                    neighborTile.Data.population = Random.Range(0, 8);
+                    neighborTile.Data.Type = TileType.Suburb;
 
                     ringTiles.Remove(neighborTile);
 

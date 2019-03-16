@@ -63,11 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraMover.cs" />
-    <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\HUDController.cs" />
+    <Compile Include="Assets\HUDLayerController.cs" />
+    <Compile Include="Assets\Scripts\Buildables\ABuildable.cs" />
+    <Compile Include="Assets\Scripts\Buildables\Station.cs" />
+    <Compile Include="Assets\Scripts\Builder.cs" />
+    <Compile Include="Assets\Scripts\CameraControls\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CameraControls\CameraMover.cs" />
+    <Compile Include="Assets\Scripts\Commands.cs" />
     <Compile Include="Assets\Scripts\HelloHexWorld.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\TerrainTileSet.cs" />
-    <Compile Include="Assets\Scripts\Tools\StationBuilder.cs" />
+    <Compile Include="Assets\Scripts\Tools\BuildStationTool.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolManager.cs" />
     <Compile Include="Assets\Scripts\UI\AUiScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\BuildStationOverlayController.cs" />
@@ -78,6 +85,7 @@
     <Compile Include="Assets\Scripts\UI\ToolbarToggle.cs" />
     <Compile Include="Assets\Scripts\UI\ToolOverlayLayerController.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
+    <Compile Include="Assets\Scripts\WorldMaps\TileData.cs" />
     <Compile Include="Assets\Scripts\WorldMaps\WorldMap.cs" />
     <Compile Include="Assets\Scripts\WorldMaps\WorldMap_RandomCities.cs" />
     <Compile Include="Assets\Scripts\WorldTiles\CityTile.cs" />

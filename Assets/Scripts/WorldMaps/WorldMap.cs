@@ -17,11 +17,13 @@ public class WorldMap : MonoBehaviour
     protected int mapRadius;
     [SerializeField] private GameObject grassTilePrefab;
 
-    protected internal GameObject[] tileObjects;
-    public HexMap<int, bool> hexMap { get; private set; }
-    protected HexMouse hexMouse;
-    
-    public Vector3Int mouseTilePosition { get; protected set; }
+    protected internal GameObject[] TileObjects;
+    public HexMap<TileData, EdgeData> HexMap { get; private set; }
+    protected HexMouse HexMouse;
+    public Dictionary<Vector3Int, List<GameObject>> BuiltObjectsByPosition;
+    public List<GameObject> builtObjects;
+    public Vector3Int MouseTilePosition { get; protected set; }
+    public Builder Builder { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class WorldMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mouseTilePosition = hexMouse.TileCoord;
+        MouseTilePosition = HexMouse.TileCoord;
         
     }
 
@@ -41,41 +43,40 @@ public class WorldMap : MonoBehaviour
         
         MakeHexMap();
         
-        hexMouse = GetComponent<HexMouse>();
+        HexMouse = GetComponent<HexMouse>();
         
-        if (hexMouse == null)
+        if (HexMouse == null)
         {
-            hexMouse = gameObject.AddComponent<HexMouse>();
+            HexMouse = gameObject.AddComponent<HexMouse>();
         }
         
-        hexMouse.Init(hexMap);
+        HexMouse.Init(HexMap);
     }
 
     protected void MakeHexMap()
     {
-        hexMap = new HexMap<int, bool>(HexMapBuilder.CreateHexagonalShapedMap(mapRadius));
-        tileObjects = new GameObject[hexMap.TilesByPosition.Count];
+        HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateHexagonalShapedMap(mapRadius));
+        TileObjects = new GameObject[HexMap.TilesByPosition.Count];
 
-        foreach (Tile<int> tile in hexMap.Tiles)
+        foreach (Tile<TileData> tile in HexMap.Tiles)
         {
             InstantiateNewTerrainTile(grassTilePrefab, tile);
-            tile.Data = 0;
         }
     }
 
-    protected GameObject ReplaceTerrainTile(Tile<int> tile, GameObject tilePrefab)
+    protected GameObject ReplaceTerrainTile(Tile<TileData> tile, GameObject tilePrefab)
     {
-        Destroy(tileObjects[tile.Index]);
+        Destroy(TileObjects[tile.Index]);
         GameObject newGameObject = InstantiateNewTerrainTile(tilePrefab, tile);
         return newGameObject;
     }
     
-    protected GameObject InstantiateNewTerrainTile(GameObject tilePrefab, Tile<int> tile)
+    protected GameObject InstantiateNewTerrainTile(GameObject tilePrefab, Tile<TileData> tile)
     {
         GameObject instance = Instantiate(tilePrefab, transform, true);
         instance.transform.position = tile.CartesianPosition;
         instance.name = "Tile - " + HexConverter.TileCoordToOffsetTileCoord(tile.Position);
-        tileObjects[tile.Index] = instance;
+        TileObjects[tile.Index] = instance;
         return instance;
     }
 
@@ -90,9 +91,24 @@ public class WorldMap : MonoBehaviour
 
     protected void AdjustCameraToFit()
     {
-        Camera.main.transform.position = new Vector3(hexMap.MapSizeData.center.x, 4, hexMap.MapSizeData.center.z);
+        Camera.main.transform.position = new Vector3(HexMap.MapSizeData.center.x, 4, HexMap.MapSizeData.center.z);
         Camera.main.orthographic = true;
         Camera.main.transform.rotation = Quaternion.Euler(90, 0, 0);
-        Camera.main.orthographicSize = hexMap.MapSizeData.extents.z * 2 * 0.8f;
+        Camera.main.orthographicSize = HexMap.MapSizeData.extents.z * 2 * 0.8f;
+    }
+
+    public void AddBuiltObject(Vector3Int position, GameObject newBuiltObject)   
+    {
+        builtObjects.Add(newBuiltObject);
+        
+        List<GameObject> list;
+
+        if (!BuiltObjectsByPosition.TryGetValue(position, out list))
+        {
+            list = new List<GameObject>();
+            BuiltObjectsByPosition.Add(position, list);
+        }
+
+        list.Add(newBuiltObject);
     }
 }
