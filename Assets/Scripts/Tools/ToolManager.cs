@@ -30,10 +30,6 @@ namespace Tools
         {
             if (ActiveTool == tool)
             {
-                if (tool == Tool.Demolish)
-                {
-                    ActiveDemolishType = DemolishType.All;
-                }
 
                 ActiveTool = Tool.None;
             }
@@ -46,6 +42,10 @@ namespace Tools
 
         public void SetActiveTool(Tool newTool)
         {
+            if (newTool == Tool.Demolish)
+            {
+                ActiveDemolishType = DemolishType.All;
+            }
             ActiveTool = newTool;
         }
 

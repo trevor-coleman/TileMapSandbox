@@ -3,6 +3,7 @@ using Buildables;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Wunderwunsch.HexMapLibrary;
 using Wunderwunsch.HexMapLibrary.Generic;
 
@@ -89,8 +90,8 @@ namespace Tools
                 UpdateStationBuilderOverlay();
             }
 
-            if (Input.GetMouseButtonDown(0))
-            {
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            { 
                 BuildCommand<StationData> buildStation =
                     new BuildCommand<StationData>(builder, new StationData(mouseTile, 1));
                 builder.ExecuteCommand(buildStation);
@@ -205,5 +206,7 @@ namespace Tools
 
             catchmentMarkers.Clear();
         }
+
+        
     }
 }

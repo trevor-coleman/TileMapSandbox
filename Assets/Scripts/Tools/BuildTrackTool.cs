@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Buildables;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Wunderwunsch.HexMapLibrary;
 using Wunderwunsch.HexMapLibrary.Generic;
 
@@ -37,7 +38,7 @@ namespace Tools
                 return;
             }
         
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log(worldMap.MouseTile);
                 Debug.Log(worldMap.MouseTile.Data);
