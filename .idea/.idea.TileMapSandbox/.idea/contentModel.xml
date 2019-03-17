@@ -51,6 +51,8 @@
             <e p="WorldTile.cs" t="Include" />
           </e>
         </e>
+        <e p="StationMarker.cs" t="Include" />
+        <e p="StationMarkerCylinder.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Resources" t="Include">
             <e p="LineBreaking Following Characters.txt" t="Include" />

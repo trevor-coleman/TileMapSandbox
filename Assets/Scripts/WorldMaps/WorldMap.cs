@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
 using Wunderwunsch.HexMapLibrary;
@@ -20,7 +21,7 @@ public class WorldMap : MonoBehaviour
     protected internal GameObject[] TileObjects;
     public HexMap<TileData, EdgeData> HexMap { get; private set; }
     protected HexMouse HexMouse;
-    public Dictionary<Vector3Int, List<GameObject>> BuiltObjectsByPosition;
+    public Dictionary<Vector3Int, List<GameObject>> builtObjectsByPosition;
     public List<GameObject> builtObjects;
     public Vector3Int MouseTilePosition { get; protected set; }
     public Builder Builder { get; private set; }
@@ -35,7 +36,6 @@ public class WorldMap : MonoBehaviour
     void Update()
     {
         MouseTilePosition = HexMouse.TileCoord;
-        
     }
 
     protected void Init()
@@ -51,6 +51,9 @@ public class WorldMap : MonoBehaviour
         }
         
         HexMouse.Init(HexMap);
+        
+        builtObjectsByPosition = new Dictionary<Vector3Int, List<GameObject>>();
+        builtObjects = new List<GameObject>();
     }
 
     protected void MakeHexMap()
@@ -102,11 +105,13 @@ public class WorldMap : MonoBehaviour
         builtObjects.Add(newBuiltObject);
         
         List<GameObject> list;
-
-        if (!BuiltObjectsByPosition.TryGetValue(position, out list))
+        
+        Debug.Log(builtObjectsByPosition.TryGetValue(position, out list));
+        
+        if (!builtObjectsByPosition.TryGetValue(position, out list))
         {
             list = new List<GameObject>();
-            BuiltObjectsByPosition.Add(position, list);
+            builtObjectsByPosition.Add(position, list);
         }
 
         list.Add(newBuiltObject);

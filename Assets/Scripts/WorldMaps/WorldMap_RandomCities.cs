@@ -82,7 +82,7 @@ public class WorldMap_RandomCities : WorldMap
                     GameObject neighborTileObject =  ReplaceTerrainTile(neighborTile, suburbTilePrefab);
                     neighborTileObject.name = "Suburb - " + HexConverter.TileCoordToOffsetTileCoord(tile.Position);
 
-                    neighborTile.Data.population = Random.Range(0, 8);
+                    neighborTile.Data.population = Random.Range(1, 8);
                     neighborTile.Data.Type = TileType.Suburb;
 
                     ringTiles.Remove(neighborTile);

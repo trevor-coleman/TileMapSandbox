@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Buildables;
+using TMPro;
 using UI;
 using UnityEngine;
 using Wunderwunsch.HexMapLibrary;
@@ -11,7 +12,7 @@ public class BuildStationTool : MonoBehaviour
     private ToolManager toolManager;
     private bool cleanedUp;
 
-
+    private TextMeshPro stationMarkerText;
     [SerializeField] private GameObject stationPrefab;
     private GameObject stationMarker;
 
@@ -28,6 +29,7 @@ public class BuildStationTool : MonoBehaviour
     private bool catchmentParentObjectInstantiated;
     private Builder builder;
     private MoneyManager moneyManager;
+    private StationMarkerCylinder stationMarkerCylinder;
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +82,8 @@ public class BuildStationTool : MonoBehaviour
 
             UpdateStationMarker(worldMap.MouseTilePosition);
             UpdateCatchmentMarkers();
+
+
             UpdateStationBuilderOverlay();
         }
 
@@ -93,18 +97,21 @@ public class BuildStationTool : MonoBehaviour
         previousMouseTilePosition = worldMap.MouseTilePosition;
     }
 
-    private void UpdateStationBuilderOverlay()
+    private int CatchmentPopulation()
     {
         int catchmentPopulation = 0;
-
-        catchmentPopulation += mouseTile.Data.population;
 
         foreach (Tile<TileData> catchmentTile in CatchmentTiles())
         {
             catchmentPopulation += catchmentTile.Data.population;
         }
 
-        BuildStationOverlayProperties data = new BuildStationOverlayProperties {population = catchmentPopulation};
+        return catchmentPopulation;
+    }
+
+    private void UpdateStationBuilderOverlay()
+    {
+        BuildStationOverlayProperties data = new BuildStationOverlayProperties {population = CatchmentPopulation()};
 
         ToolOverLayProperties<BuildStationOverlayProperties> properties =
             new ToolOverLayProperties<BuildStationOverlayProperties> {Tool = Tool.BuildStation, Data = data};
@@ -126,24 +133,26 @@ public class BuildStationTool : MonoBehaviour
 
     private void UpdateCatchmentMarkers()
     {
+        RemoveCatchmentMarkers();
+        
+        if (mouseTile.Data.hasStation) return;
+
         if (!catchmentParentObjectInstantiated)
         {
             MakeCatchmentParentObject();
         }
-
-        RemoveCatchmentMarkers();
-
-        foreach (Tile<TileData> catchmentTile in CatchmentRingTiles())
+        
+        foreach (Tile<TileData> catchmentRingTile in CatchmentRingTiles())
         {
-            if (catchmentTile.Data.hasStation) continue;
+            if (catchmentRingTile.Data.hasStation) continue;
 
-            GameObject thisTileMarker = catchmentTile.Data.Populated
+            GameObject thisTileMarker = catchmentRingTile.Data.Populated
                 ? catchmentMarkerPopulatedPrefab
                 : catchmentMarkerEmptyPrefab;
 
             GameObject catchmentMarker = Instantiate(
                 thisTileMarker,
-                HexConverter.TileCoordToCartesianCoord(catchmentTile.Position, 0.1f),
+                HexConverter.TileCoordToCartesianCoord(catchmentRingTile.Position, 0.1f),
                 Quaternion.identity,
                 catchmentMarkerParentObject.transform
             );
@@ -157,9 +166,22 @@ public class BuildStationTool : MonoBehaviour
         {
             stationMarker = Instantiate(stationPrefab, transform);
             stationMarker.name = "StationBuilder - StationMarker";
+            stationMarkerText = stationMarker.GetComponentInChildren<TextMeshPro>();
+            stationMarkerCylinder = stationMarker.GetComponentInChildren<StationMarkerCylinder>();
         }
 
+        if (mouseTile.Data.hasStation)
+        {
+            Debug.Log("STATION");
+            stationMarkerCylinder.currentState = StationMarkerCylinder.State.Prohibited;
+        }
+        else
+        {
+            stationMarkerCylinder.currentState = StationMarkerCylinder.State.Default;
+        }
+        
         stationMarker.transform.position = HexConverter.TileCoordToCartesianCoord(mouseTilePosition, 0.1f);
+        stationMarkerText.text = CatchmentPopulation().ToString();
     }
 
 

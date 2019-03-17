@@ -94,6 +94,8 @@
     <Compile Include="Assets\Scripts\WorldTiles\CityTile.cs" />
     <Compile Include="Assets\Scripts\WorldTiles\SuburbTile.cs" />
     <Compile Include="Assets\Scripts\WorldTiles\WorldTile.cs" />
+    <Compile Include="Assets\StationMarker.cs" />
+    <Compile Include="Assets\StationMarkerCylinder.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\z_uipack_fixed\Spritesheet\yellowSheet.xml" />

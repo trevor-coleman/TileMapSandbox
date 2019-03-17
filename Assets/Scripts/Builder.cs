@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Buildables;
+using UnityEditor.Animations;
 using UnityEngine;
 using Wunderwunsch.HexMapLibrary;
 using Wunderwunsch.HexMapLibrary.Generic;
@@ -11,14 +12,25 @@ public enum Buildable
     Station,
 }
 
+
+
 public class Builder : MonoBehaviour
 {
     private WorldMap worldMap;
     private GameObject builtObjectParent;
     private MoneyManager moneyManager;
-
-    [SerializeField]private GameObject stationPrefab;
     
+    public enum BuildingResult
+    {
+        Init,
+        Success,
+        InsufficientFunds,
+        SpaceBlocked,
+        IllegalPlacement
+    }
+
+    [SerializeField] private GameObject stationPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +42,12 @@ public class Builder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
-    
-    public void BuildStation(StationData stationData)
+
+    public BuildingResult BuildStation(StationData stationData)
     {
         Tile<TileData> tile = stationData.Tile;
-        
+
         GameObject newStation = Instantiate(stationPrefab, tile.CartesianPosition, Quaternion.identity,
             builtObjectParent.transform);
 
@@ -45,24 +56,46 @@ public class Builder : MonoBehaviour
         tile.Data.hasStation = true;
 
         worldMap.AddBuiltObject(tile.Position, newStation);
+        
+        return BuildingResult.Success;
     }
 
     public void Build(IBuildableData buildableData)
     {
+        BuildingResult result = BuildingResult.Init;
+
         if (moneyManager.CanSpend(buildableData.Price))
         {
             switch (buildableData.Buildable)
             {
                 case Buildable.Station:
-                    moneyManager.Spend(buildableData.Price);
-                    BuildStation(buildableData as StationData);
+                    result = BuildStation(buildableData as StationData);
                     break;
-
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+
+            
         }
         else
         {
-            Debug.LogWarning("Insufficient funds!");
+            result = BuildingResult.InsufficientFunds;
+        }
+
+
+        switch (result)
+        {
+            case BuildingResult.Success:
+                moneyManager.Spend(buildableData.Price);
+                break;
+            case BuildingResult.InsufficientFunds:
+            case BuildingResult.SpaceBlocked:
+            case BuildingResult.IllegalPlacement:
+                Debug.LogWarning("Build Failed - " + buildableData.Buildable + " - " + result);
+                break;
+            default:      
+                Debug.LogError("BuildResult was not properly set");
+                break;
         }
     }
 
@@ -72,4 +105,3 @@ public class Builder : MonoBehaviour
         buildCommand.Execute();
     }
 }
-
