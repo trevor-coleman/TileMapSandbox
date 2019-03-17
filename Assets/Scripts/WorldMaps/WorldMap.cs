@@ -24,6 +24,7 @@ public class WorldMap : MonoBehaviour
     public Dictionary<Vector3Int, List<GameObject>> builtObjectsByPosition;
     public List<GameObject> builtObjects;
     public Vector3Int MouseTilePosition { get; protected set; }
+    public Tile<TileData> MouseTile;
     public Builder Builder { get; private set; }
 
     // Start is called before the first frame update
@@ -35,7 +36,9 @@ public class WorldMap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!HexMouse.CursorIsOnMap) return;
         MouseTilePosition = HexMouse.TileCoord;
+        MouseTile = HexMap.TilesByPosition[MouseTilePosition];
     }
 
     protected void Init()
@@ -58,7 +61,7 @@ public class WorldMap : MonoBehaviour
 
     protected void MakeHexMap()
     {
-        HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateHexagonalShapedMap(mapRadius));
+        HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateRectangularShapedMap(new Vector2Int(60,30)));
         TileObjects = new GameObject[HexMap.TilesByPosition.Count];
 
         foreach (Tile<TileData> tile in HexMap.Tiles)
@@ -105,8 +108,6 @@ public class WorldMap : MonoBehaviour
         builtObjects.Add(newBuiltObject);
         
         List<GameObject> list;
-        
-        Debug.Log(builtObjectsByPosition.TryGetValue(position, out list));
         
         if (!builtObjectsByPosition.TryGetValue(position, out list))
         {

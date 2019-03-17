@@ -2,48 +2,89 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Tool
+namespace Tools
 {
-    None,
-    BuildStation,
-    BuildTracks,
-    Demolish,
-    
+    public enum Tool
+    {
+        None,
+        BuildStation,
+        BuildTracks,
+        Demolish,
+    }
+
+    public enum DemolishType
+    {
+        All,
+        Tracks,
+        Stations
+    }
+
+    public class ToolManager : MonoBehaviour
+    {
+
+        [SerializeField] public DemolishType ActiveDemolishType;
+
+        [SerializeField] public Tool ActiveTool; 
+
+        private void DeselectTool(Tool tool)
+        {
+            if (ActiveTool == tool)
+            {
+                if (tool == Tool.Demolish)
+                {
+                    ActiveDemolishType = DemolishType.All;
+                }
+
+                ActiveTool = Tool.None;
+            }
+        }
+
+        public void SetToolToNone()
+        {
+            ActiveTool = Tool.None;
+        }
+
+        public void SetActiveTool(Tool newTool)
+        {
+            ActiveTool = newTool;
+        }
+
+        public void Toggle(Tool tool)
+        {
+            if (ActiveTool == tool)
+            {
+                DeselectTool(ActiveTool);
+            }
+            else
+            {
+                SetActiveTool(tool);
+            }
+        }
+
+      
+        public void ToggleDemolishType(DemolishType demolishType)
+        {
+        
+            if (ActiveDemolishType == demolishType)
+            {
+                DeselectDemolishType();
+            }
+            else
+            {
+                SetActiveDemolishType(demolishType);
+            }
+        }
+
+        private void SetActiveDemolishType(DemolishType demolishType)
+        {
+            ActiveDemolishType = demolishType;
+            Debug.Log("Selecting - " + ActiveDemolishType);
+        }
+
+        private void DeselectDemolishType()
+        {
+            ActiveDemolishType = DemolishType.All;
+            
+        }
+    }
 }
-
-public class ToolManager : MonoBehaviour
-{
-    [SerializeField] private Tool activeTool;
-    public Tool ActiveTool => activeTool;
-       
-    private void DeselectTool(Tool tool)
-    {
-        if (activeTool == tool)
-        {
-            activeTool = Tool.None;
-        }
-    }
-
-    public void SetToolToNone()
-    {
-        activeTool = Tool.None;
-    }
-    
-    public void SetActiveTool(Tool newTool)
-    {
-        activeTool = newTool;
-    }
-
-    public void Toggle(Tool tool)
-    {
-        if (activeTool == tool)
-        {
-            DeselectTool(activeTool);
-        }
-        else
-        {
-            SetActiveTool(tool);
-        }
-    }
-}
-

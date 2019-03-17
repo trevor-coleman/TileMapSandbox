@@ -10,6 +10,7 @@ public class MoneyManager : MonoBehaviour
     public int BankBalance => bankBalance; 
     [SerializeField] private int startingBankBalance;
     private UIController uiController;
+    [SerializeField] private bool infiniteMoney;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,12 @@ public class MoneyManager : MonoBehaviour
 
     private void UpdateHUD()
     {
+
         HudDisplayUpdate<FinanceDisplayData> update = new HudDisplayUpdate<FinanceDisplayData>(
             HudDisplay.Finance, 
             new FinanceDisplayData(
-                bankBalance));
+                bankBalance,
+                infiniteMoney));
 
         Debug.Log("moneyManager: " + update.Data);
         uiController.UpdateHud(update);
@@ -37,7 +40,6 @@ public class MoneyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public bool CanSpend(int amount)
@@ -47,6 +49,8 @@ public class MoneyManager : MonoBehaviour
 
     public bool Spend(int amount)
     {
+        if (infiniteMoney) return true;
+        
         if (CanSpend(amount))
         {
             bankBalance -= amount;

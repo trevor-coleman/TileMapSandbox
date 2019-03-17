@@ -21,4 +21,9 @@ public class CurrentBalancePanel : MonoBehaviour
         textMeshProUgui.text = "$" + bankBalance.ToString("N0");
 
     }
+
+    public void ShowInfiniteMoney()
+    {
+        textMeshProUgui.text = "$infinite";
+    }
 }

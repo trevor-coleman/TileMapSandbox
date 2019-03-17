@@ -7,7 +7,7 @@ public class FinanceDisplayController : AUiScreenController<FinanceDisplayData>
 {
     private FinanceDisplayData data;
     private CurrentBalancePanel currentBalancePanel;
-    
+
     private void Start()
     {
         IsVisible = true;
@@ -24,18 +24,30 @@ public class FinanceDisplayController : AUiScreenController<FinanceDisplayData>
     public override void Show(FinanceDisplayData data)
     {
         this.data = data;
-        Debug.Log("FinanceDisplay " + data );
-        currentBalancePanel.UpdateBalance(data.BankBalance);
-        ShowCanvas();
+        if (currentBalancePanel != null)
+        {
+            if (data.InfiniteMoney)
+            {
+                currentBalancePanel.ShowInfiniteMoney();
+            }
+            else
+            {
+                currentBalancePanel.UpdateBalance(data.BankBalance);
+            }
+
+            ShowCanvas();
+        }
     }
 }
 
-public class FinanceDisplayData: IHudDisplayData
+public class FinanceDisplayData : IHudDisplayData
 {
     public int BankBalance { get; }
+    public bool InfiniteMoney { get; }
 
-    public FinanceDisplayData(int bankBalance)
+    public FinanceDisplayData(int bankBalance, bool infiniteMoney = false)
     {
         this.BankBalance = bankBalance;
+        this.InfiniteMoney = infiniteMoney;
     }
 }

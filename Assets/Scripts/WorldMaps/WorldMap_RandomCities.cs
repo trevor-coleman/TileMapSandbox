@@ -27,13 +27,6 @@ public class WorldMap_RandomCities : WorldMap
         if(adjustCameraToFit) AdjustCameraToFit();
     }
 
-    void Update()
-    {
-        if (!HexMouse.CursorIsOnMap) return;
-
-        MouseTilePosition = HexMouse.TileCoord;
-
-    }
     
     private void AddRandomCitiesToMap()
     {

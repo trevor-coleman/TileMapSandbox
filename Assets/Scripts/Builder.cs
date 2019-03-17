@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Buildables;
-using UnityEditor.Animations;
+using Tools;
 using UnityEngine;
 using Wunderwunsch.HexMapLibrary;
 using Wunderwunsch.HexMapLibrary.Generic;
@@ -10,9 +10,8 @@ using Wunderwunsch.HexMapLibrary.Generic;
 public enum Buildable
 {
     Station,
+    Track
 }
-
-
 
 public class Builder : MonoBehaviour
 {
@@ -30,6 +29,8 @@ public class Builder : MonoBehaviour
     }
 
     [SerializeField] private GameObject stationPrefab;
+    [SerializeField] private GameObject trackPrefab;
+    [SerializeField] private GameObject trackStubPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,7 @@ public class Builder : MonoBehaviour
     {
     }
 
-    public BuildingResult BuildStation(StationData stationData)
+    public void BuildStation(StationData stationData, out BuildingResult result)
     {
         Tile<TileData> tile = stationData.Tile;
 
@@ -53,11 +54,91 @@ public class Builder : MonoBehaviour
 
         newStation.GetComponent<Station>().UpdateData(stationData);
 
-        tile.Data.hasStation = true;
+        tile.Data.HasStation = true;
+        tile.Data.StationObject = newStation;
+        
+        AddTracksToTile(tile);
 
         worldMap.AddBuiltObject(tile.Position, newStation);
         
-        return BuildingResult.Success;
+        result = BuildingResult.Success;
+    }
+
+    public void BuildTrack(TrackData trackData, out BuildingResult result)
+    {   
+        Tile<TileData> tile = trackData.Tile;
+
+        AddTracksToTile(tile);
+
+
+        result = BuildingResult.Success;
+    }
+
+    private void AddTracksToTile(Tile<TileData> tile)
+    {
+        tile.Data.HasTracks = true;
+
+        List<Tile<TileData>> neighborTiles = worldMap.HexMap.GetTiles.Ring(tile, 1, 1);
+        List<Tile<TileData>> neighborTilesWithTracks = new List<Tile<TileData>>();
+        List<float> trackAngles = new List<float>();
+
+        foreach (Tile<TileData> neighborTile in neighborTiles)
+        {
+            if (neighborTile.Data.HasTracks)
+            {
+                neighborTilesWithTracks.Add(neighborTile);
+            }
+        }
+
+        if (neighborTilesWithTracks.Count > 0)
+        {
+            foreach (Tile<TileData> neighborTile in neighborTilesWithTracks)
+            {
+                GameObject trackStub;
+
+                if (neighborTile.Data.TrackObjectsByNeighborPosition.TryGetValue(neighborTile.Position, out trackStub))
+                    Destroy(trackStub);
+
+                InstantiateTrackObject(tile, neighborTile);
+                InstantiateTrackObject(neighborTile, tile);
+            }
+        }
+        else
+        {
+            tile.Data.TrackStubObject =
+                Instantiate(
+                    trackStubPrefab, 
+                    tile.CartesianPosition, 
+                    Quaternion.identity,
+                    builtObjectParent.transform
+                    );
+        }
+    }
+
+    private void InstantiateTrackObject(Tile<TileData> tile, Tile<TileData> neighborTile)
+    {
+
+        Vector3 edgePosition = 
+            worldMap
+                .HexMap
+                .GetEdge
+                .BetweenNeighbouringTiles(
+                    tile.Position, 
+                    neighborTile.Position)
+                .CartesianPosition;
+        
+        Quaternion trackRotation = Quaternion.FromToRotation(Vector3.forward, edgePosition - tile.CartesianPosition);
+        
+
+        GameObject trackObject = Instantiate(
+            trackPrefab,
+            tile.CartesianPosition,
+            trackRotation,
+            builtObjectParent.transform);
+
+        tile.Data.TrackObjectsByNeighborPosition[neighborTile.Position] = trackObject;
+        worldMap.AddBuiltObject(tile.Position, trackObject);
+       
     }
 
     public void Build(IBuildableData buildableData)
@@ -69,7 +150,10 @@ public class Builder : MonoBehaviour
             switch (buildableData.Buildable)
             {
                 case Buildable.Station:
-                    result = BuildStation(buildableData as StationData);
+                    BuildStation(buildableData as StationData, out result);
+                    break;
+                case Buildable.Track:
+                    BuildTrack(buildableData as TrackData, out result);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

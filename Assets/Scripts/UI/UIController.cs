@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 
 namespace UI
@@ -31,8 +32,6 @@ namespace UI
 
         public void UpdateHud<T>(HudDisplayUpdate<T> update) where T: IHudDisplayData
         {
-            Debug.Log("====>" + hudLayerController);
-            Debug.Log("UIController" + update.Data);
             hudLayerController.Show(update);
         }
 

@@ -63,8 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CurrentBalancePanel.cs" />
-    <Compile Include="Assets\FinanceDisplayController.cs" />
     <Compile Include="Assets\Scripts\Buildables\ABuildable.cs" />
     <Compile Include="Assets\Scripts\Buildables\Prices.cs" />
     <Compile Include="Assets\Scripts\Buildables\Station.cs" />
@@ -75,10 +73,17 @@
     <Compile Include="Assets\Scripts\HelloHexWorld.cs" />
     <Compile Include="Assets\Scripts\MoneyManager.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\TerrainTileSet.cs" />
+    <Compile Include="Assets\Scripts\StationMarker.cs" />
+    <Compile Include="Assets\Scripts\StationMarkerCylinder.cs" />
     <Compile Include="Assets\Scripts\Tools\BuildStationTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\BuildTrackTool.cs" />
     <Compile Include="Assets\Scripts\Tools\ToolManager.cs" />
     <Compile Include="Assets\Scripts\UI\AUiScreenController.cs" />
     <Compile Include="Assets\Scripts\UI\BuildStationOverlayController.cs" />
+    <Compile Include="Assets\Scripts\UI\CurrentBalancePanel.cs" />
+    <Compile Include="Assets\Scripts\UI\DemolishOptionsController.cs" />
+    <Compile Include="Assets\Scripts\UI\DemolishOptionsToggle.cs" />
+    <Compile Include="Assets\Scripts\UI\FinanceDisplayController.cs" />
     <Compile Include="Assets\Scripts\UI\HUDController.cs" />
     <Compile Include="Assets\Scripts\UI\HudLayerController.cs" />
     <Compile Include="Assets\Scripts\UI\ToolBarButton.cs" />
@@ -94,8 +99,6 @@
     <Compile Include="Assets\Scripts\WorldTiles\CityTile.cs" />
     <Compile Include="Assets\Scripts\WorldTiles\SuburbTile.cs" />
     <Compile Include="Assets\Scripts\WorldTiles\WorldTile.cs" />
-    <Compile Include="Assets\StationMarker.cs" />
-    <Compile Include="Assets\StationMarkerCylinder.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\z_uipack_fixed\Spritesheet\yellowSheet.xml" />

@@ -24,7 +24,6 @@ namespace UI
             switch (update.HudDisplay)
             {
                 case HudDisplay.Finance:
-                    Debug.Log("HudLayer " + update.Data);
                     financeDisplayController.Show(update.Data as FinanceDisplayData);
                     break;
                 default:
