@@ -8,24 +8,36 @@ using Wunderwunsch.HexMapLibrary;
 using Wunderwunsch.HexMapLibrary.Generic;
 using Random = UnityEngine.Random;
 
+
+
 public class WorldMap : MonoBehaviour
 {
     [Header("Camera")] 
     [SerializeField] protected bool adjustCameraToFit;
 
+    protected enum MapShape
+    {
+        Hexagon,
+        Rectangle
+    }
 
-    [Header("Map Settings")] [SerializeField]
-    protected int mapRadius;
+    
+    
+    [Header("Map Settings")] 
+    [SerializeField] protected MapShape mapShape;
+    [SerializeField] protected Vector2Int rectDimensions;
+    [SerializeField]protected int hexRadius;
     [SerializeField] private GameObject grassTilePrefab;
 
     protected internal GameObject[] TileObjects;
     public HexMap<TileData, EdgeData> HexMap { get; private set; }
     protected HexMouse HexMouse;
     public Dictionary<Vector3Int, List<GameObject>> builtObjectsByPosition;
-    public List<GameObject> builtObjects;
+    [HideInInspector] public List<GameObject> builtObjects;
     public Vector3Int MouseTilePosition { get; protected set; }
     public Tile<TileData> MouseTile;
     public Builder Builder { get; private set; }
+    
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +73,25 @@ public class WorldMap : MonoBehaviour
 
     protected void MakeHexMap()
     {
-        HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateRectangularShapedMap(new Vector2Int(60,30)));
+
+        switch (mapShape)
+        {
+            case MapShape.Rectangle:
+                HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateRectangularShapedMap(rectDimensions));
+                break;
+            case MapShape.Hexagon:
+                HexMap = new HexMap<TileData, EdgeData>(HexMapBuilder.CreateHexagonalShapedMap(hexRadius));
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+            
+        
+        
+        
+
         TileObjects = new GameObject[HexMap.TilesByPosition.Count];
 
         foreach (Tile<TileData> tile in HexMap.Tiles)
@@ -116,5 +146,15 @@ public class WorldMap : MonoBehaviour
         }
 
         list.Add(newBuiltObject);
+    }
+    
+    public IEnumerable<Tile<TileData>> GetNeighbors(Tile<TileData> current)
+    {
+        return HexMap.GetTiles.Ring(current, 1, 1);
+    }
+
+    public float GetCost(Tile<TileData> current, Tile<TileData> next)
+    {
+        return next.Data.MovementCost(current);
     }
 }

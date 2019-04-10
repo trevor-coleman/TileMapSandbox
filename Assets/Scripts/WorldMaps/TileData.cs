@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Buildables;
 using UnityEngine;
 using Wunderwunsch.HexMapLibrary.Generic;
 
@@ -13,9 +14,9 @@ public class TileData
     public bool HasStation { get; set; }
     public bool HasTracks { get; set; }
     public Dictionary<Vector3Int, GameObject> TrackObjectsByNeighborPosition;
-    public GameObject StationObject { get; set; }
     public GameObject TrackStubObject { get; set; }
-    
+    public Station Station { get; set; }
+
     public TileData()
     {
         this.population = 0;
@@ -23,8 +24,21 @@ public class TileData
         this.HasStation = false;
         this.HasTracks = false;
         this.TrackObjectsByNeighborPosition = new Dictionary<Vector3Int, GameObject>();
-        this.StationObject = null;
+        this.Station = null;
     }
+
+    public float MovementCost(Tile<TileData> other)
+    {
+        if (HasTracks)
+        {
+            return 1;
+        }
+        else
+        {
+            return float.PositiveInfinity;
+        }
+    }
+    
 }
 
 

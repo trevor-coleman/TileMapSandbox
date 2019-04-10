@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization;
+using Navigation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.WSA;
@@ -15,14 +18,23 @@ namespace Buildables
         [SerializeField] private int catchmentRadius;
         private WorldMap worldMap;
         private List<Tile<TileData>> catchmentTiles;
-        
-        
+        private Tile<TileData> tile;
+        private GameManager gameManager;
+        public List<Station> connectedStations;
+        private bool connectedStationsHighlighted;
+        [SerializeField] private Material highlightMaterial;
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private GameObject stationObject;
+        private MeshRenderer meshRenderer;
 
         private void Start()
         {
             worldMap = FindObjectOfType<WorldMap>();
             Debug.Log("WorldMap - " + worldMap);
             textMeshPro = GetComponentInChildren<TextMeshPro>();
+            gameManager = FindObjectOfType<GameManager>();
+            meshRenderer = stationObject.GetComponent<MeshRenderer>();
+
         }
 
         // Update is called once per frame
@@ -30,8 +42,34 @@ namespace Buildables
         {
             UpdateCatchment();
             textMeshPro.text = catchment.ToString();
+            HighlightConnectedStations(worldMap.MouseTile == tile);
+        }
+
+        private void HighlightConnectedStations(bool newState)
+        {
+            if (connectedStationsHighlighted == newState) return;
+            
+            SetHighlight(newState);
+            
+            foreach (Station station in connectedStations)
+                {
+
+                    station.SetHighlight(newState);
+
+                }
+
+                connectedStationsHighlighted = newState;
         }
         
+        private void SetHighlight(bool highlightState)
+        {
+            Material newMaterial = highlightState ? highlightMaterial : defaultMaterial;
+            
+            Debug.Log(newMaterial);
+            Debug.Log(meshRenderer);
+            stationObject.GetComponent<MeshRenderer>().material = newMaterial;
+        }
+
         public override void Build(Tile<TileData> tile, StationData data)
         {
             this.Tile = tile;
@@ -67,6 +105,10 @@ namespace Buildables
 
         
 
+        public void SetTile(Tile<TileData> tile)
+        {
+            this.tile = tile;
+        }
     }
 
     public class StationData : IBuildableData
@@ -86,4 +128,5 @@ namespace Buildables
 
         
     }
+
 }

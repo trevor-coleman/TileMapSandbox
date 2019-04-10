@@ -354,6 +354,15 @@
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>/Users/trevorcoleman/dev/unity/sandbox/TileMapSandbox/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
+    <Reference Include="NugetForUnity">
+      <HintPath>/Users/trevorcoleman/dev/unity/sandbox/TileMapSandbox/Assets/NuGet/Editor/NugetForUnity.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip">
+      <HintPath>/Users/trevorcoleman/dev/unity/sandbox/TileMapSandbox/Assets/NuGet/Editor/DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="Priority Queue">
+      <HintPath>/Users/trevorcoleman/dev/unity/sandbox/TileMapSandbox/Assets/Packages/OptimizedPriorityQueue.4.2.0/lib/netstandard1.0/Priority Queue.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/trevorcoleman/dev/unity/sandbox/TileMapSandbox/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>

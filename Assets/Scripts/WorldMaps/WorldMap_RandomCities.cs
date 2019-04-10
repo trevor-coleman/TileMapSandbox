@@ -6,7 +6,7 @@ using Wunderwunsch.HexMapLibrary.Generic;
 
 public class WorldMap_RandomCities : WorldMap
 {
-
+    [Header("WorldMap - Random Cities")]
     [SerializeField] private GameObject cityTilePrefab;
     private GameObject previousHoverTileObject;
     private WorldTile hoverTileComponent;

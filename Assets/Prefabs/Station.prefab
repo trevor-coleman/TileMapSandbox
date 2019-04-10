@@ -286,6 +286,10 @@ MonoBehaviour:
   price: 10000
   catchment: 0
   catchmentRadius: 0
+  connectedStations: []
+  highlightMaterial: {fileID: 2100000, guid: 9d3c002ef52994fcb8d2c17bf2f70fb0, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 1aef13ed534064d2ab29921c90d5405f, type: 2}
+  stationObject: {fileID: 6575018966951763153}
 --- !u!1 &6575018966951763153
 GameObject:
   m_ObjectHideFlags: 0

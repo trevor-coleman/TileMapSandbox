@@ -25,3 +25,22 @@ public class BuildCommand<T> : IBuildCommand where T: IBuildableData
         builder.Build(buildableData);
     }
 }
+
+public class DemolishCommand<T> : IBuildCommand where T: IBuildableData
+{
+    private Builder builder;
+    private readonly IBuildableData buildableData;
+
+    public DemolishCommand(Builder builder, T buildableData)
+    {
+        this.builder = builder;
+        this.buildableData = buildableData;
+
+    }
+
+    public void Execute()
+    {
+        builder.Demolish(buildableData);
+    }
+}
+
